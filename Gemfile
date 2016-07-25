@@ -43,3 +43,30 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+
+gem 'twitter-bootstrap-rails'
+gem 'devise'
+gem 'cancancan'
+gem 'kaminari'
+gem 'pretty_validation', git: 'https://github.com/akm/pretty_validation.git'
+gem 'dotenv-rails', require: 'dotenv/rails-now'
+group :development, :test do
+  gem 'rspec'
+  gem 'rspec-rails'
+  gem 'simplecov', require: false
+  gem 'simplecov-rcov', require: false
+  gem 'pry-rails'
+  gem 'pry-byebug'
+  gem 'pry-stack_explorer'
+  gem 'fuubar'
+  gem 'factory_girl'
+  gem 'factory_girl_rails'
+  gem 'annotate'
+  gem 'rails_best_practices'
+  gem 'bullet'
+end
+
+group :development do
+  gem 'better_errors'
+  gem 'binding_of_caller'
+end
