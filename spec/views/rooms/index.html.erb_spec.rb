@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe "rooms/index", type: :view do
   let(:organization){ FactoryGirl.create(:organization) }
   before(:each) do
+    assign(:organization, organization)
     assign(:rooms, [
       FactoryGirl.create(:room, organization: organization, name: 'room1'),
       FactoryGirl.create(:room, organization: organization, name: 'room2'),

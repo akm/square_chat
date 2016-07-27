@@ -1,9 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe "rooms/show", type: :view do
+  let(:organization){ FactoryGirl.create(:organization) }
   before(:each) do
-    @room = assign(:room, FactoryGirl.create(:room))
-    @messages = assign(:messages, [FactoryGirl.create(:message)])
+    assign(:organization, organization)
+    @room = assign(:room, FactoryGirl.create(:room, organization: organization))
+    @messages = assign(:messages, [FactoryGirl.create(:message, room: @room)])
   end
 
   it "renders attributes in <p>" do
