@@ -19,7 +19,7 @@
   <%= text_field_tag nil, nil, id: nil,
       :'data-behavior' => "room_speaker",
       :'data-room-id' => @room.id,
-      :'data-user-id' => current_user.id
+      :'data-user-id' => User.current_user.id
   %>
 </form>
 
