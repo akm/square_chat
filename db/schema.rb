@@ -10,7 +10,31 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160725093138) do
+ActiveRecord::Schema.define(version: 20160727014412) do
+
+  create_table "messages", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "メッセージ" do |t|
+    t.integer  "room_id",                  null: false, comment: "ルーム"
+    t.integer  "user_id",                  null: false, comment: "ユーザ"
+    t.text     "content",    limit: 65535,              comment: "内容"
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.index ["room_id"], name: "index_messages_on_room_id", using: :btree
+    t.index ["user_id"], name: "index_messages_on_user_id", using: :btree
+  end
+
+  create_table "organizations", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "組織" do |t|
+    t.string   "name",       null: false, comment: "組織名"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "rooms", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "ルーム" do |t|
+    t.integer  "organization_id", null: false, comment: "組織"
+    t.string   "name",            null: false, comment: "ルーム名"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.index ["organization_id"], name: "index_rooms_on_organization_id", using: :btree
+  end
 
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "ユーザ" do |t|
     t.string   "email",                  default: "", null: false, comment: "メールアドレス"
@@ -29,4 +53,7 @@ ActiveRecord::Schema.define(version: 20160725093138) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 
+  add_foreign_key "messages", "rooms"
+  add_foreign_key "messages", "users"
+  add_foreign_key "rooms", "organizations"
 end
