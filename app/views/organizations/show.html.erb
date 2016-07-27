@@ -8,6 +8,8 @@
   <dd><%= @organization.name %></dd>
 </dl>
 
+<%= render 'rooms/table', rooms: @rooms %>
+
 <%= link_to t('.back', :default => t("helpers.links.back")),
               organizations_path, :class => 'btn btn-default'  %>
 <%= link_to t('.edit', :default => t("helpers.links.edit")),
