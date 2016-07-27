@@ -27,7 +27,7 @@ RSpec.describe RoomsController, type: :controller do
   # Room. As you add validations to Room, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    FactoryGirl.attributes_for(:room).merge(organization_id: organization.id)
+    FactoryGirl.attributes_for(:room)
   }
 
   let(:invalid_attributes) {
@@ -41,31 +41,31 @@ RSpec.describe RoomsController, type: :controller do
 
   describe "GET #index" do
     it "assigns all rooms as @rooms" do
-      room = FactoryGirl.create(:room)
-      get :index, params: {}, session: valid_session
+      room = FactoryGirl.create(:room, organization: organization)
+      get :index, params: {organization_id: organization.id}, session: valid_session
       expect(assigns(:rooms)).to eq([room])
     end
   end
 
   describe "GET #show" do
     it "assigns the requested room as @room" do
-      room = FactoryGirl.create(:room)
-      get :show, params: {:id => room.to_param}, session: valid_session
+      room = FactoryGirl.create(:room, organization: organization)
+      get :show, params: {organization_id: organization.id, :id => room.to_param}, session: valid_session
       expect(assigns(:room)).to eq(room)
     end
   end
 
   describe "GET #new" do
     it "assigns a new room as @room" do
-      get :new, params: {}, session: valid_session
+      get :new, params: {organization_id: organization.id}, session: valid_session
       expect(assigns(:room)).to be_a_new(Room)
     end
   end
 
   describe "GET #edit" do
     it "assigns the requested room as @room" do
-      room = FactoryGirl.create(:room)
-      get :edit, params: {:id => room.to_param}, session: valid_session
+      room = FactoryGirl.create(:room, organization: organization)
+      get :edit, params: {organization_id: organization.id, :id => room.to_param}, session: valid_session
       expect(assigns(:room)).to eq(room)
     end
   end
@@ -74,30 +74,30 @@ RSpec.describe RoomsController, type: :controller do
     context "with valid params" do
       it "creates a new Room" do
         expect {
-          post :create, params: {:room => valid_attributes}, session: valid_session
+          post :create, params: {organization_id: organization.id, :room => valid_attributes}, session: valid_session
         }.to change(Room, :count).by(1)
       end
 
       it "assigns a newly created room as @room" do
-        post :create, params: {:room => valid_attributes}, session: valid_session
+        post :create, params: {organization_id: organization.id, :room => valid_attributes}, session: valid_session
         expect(assigns(:room)).to be_a(Room)
         expect(assigns(:room)).to be_persisted
       end
 
       it "redirects to the created room" do
-        post :create, params: {:room => valid_attributes}, session: valid_session
-        expect(response).to redirect_to(Room.last)
+        post :create, params: {organization_id: organization.id, :room => valid_attributes}, session: valid_session
+        expect(response).to redirect_to(organization_room_path(organization, Room.last))
       end
     end
 
     context "with invalid params" do
       it "assigns a newly created but unsaved room as @room" do
-        post :create, params: {:room => invalid_attributes}, session: valid_session
+        post :create, params: {organization_id: organization.id, :room => invalid_attributes}, session: valid_session
         expect(assigns(:room)).to be_a_new(Room)
       end
 
       it "re-renders the 'new' template" do
-        post :create, params: {:room => invalid_attributes}, session: valid_session
+        post :create, params: {organization_id: organization.id, :room => invalid_attributes}, session: valid_session
         expect(response).to render_template("new")
       end
     end
@@ -112,35 +112,35 @@ RSpec.describe RoomsController, type: :controller do
       }
 
       it "updates the requested room" do
-        room = FactoryGirl.create(:room)
-        put :update, params: {:id => room.to_param, :room => new_attributes}, session: valid_session
+        room = FactoryGirl.create(:room, organization: organization)
+        put :update, params: {organization_id: organization.id, :id => room.to_param, :room => new_attributes}, session: valid_session
         room.reload
         expect(room.name).to eq new_name
       end
 
       it "assigns the requested room as @room" do
-        room = FactoryGirl.create(:room)
-        put :update, params: {:id => room.to_param, :room => valid_attributes}, session: valid_session
+        room = FactoryGirl.create(:room, organization: organization)
+        put :update, params: {organization_id: organization.id, :id => room.to_param, :room => valid_attributes}, session: valid_session
         expect(assigns(:room)).to eq(room)
       end
 
       it "redirects to the room" do
-        room = FactoryGirl.create(:room)
-        put :update, params: {:id => room.to_param, :room => valid_attributes}, session: valid_session
-        expect(response).to redirect_to(room)
+        room = FactoryGirl.create(:room, organization: organization)
+        put :update, params: {organization_id: organization.id, :id => room.to_param, :room => valid_attributes}, session: valid_session
+        expect(response).to redirect_to(organization_room_path(organization, room))
       end
     end
 
     context "with invalid params" do
       it "assigns the room as @room" do
-        room = FactoryGirl.create(:room)
-        put :update, params: {:id => room.to_param, :room => invalid_attributes}, session: valid_session
+        room = FactoryGirl.create(:room, organization: organization)
+        put :update, params: {organization_id: organization.id, :id => room.to_param, :room => invalid_attributes}, session: valid_session
         expect(assigns(:room)).to eq(room)
       end
 
       it "re-renders the 'edit' template" do
-        room = FactoryGirl.create(:room)
-        put :update, params: {:id => room.to_param, :room => invalid_attributes}, session: valid_session
+        room = FactoryGirl.create(:room, organization: organization)
+        put :update, params: {organization_id: organization.id, :id => room.to_param, :room => invalid_attributes}, session: valid_session
         expect(response).to render_template("edit")
       end
     end
@@ -148,16 +148,16 @@ RSpec.describe RoomsController, type: :controller do
 
   describe "DELETE #destroy" do
     it "destroys the requested room" do
-      room = FactoryGirl.create(:room)
+      room = FactoryGirl.create(:room, organization: organization)
       expect {
-        delete :destroy, params: {:id => room.to_param}, session: valid_session
+        delete :destroy, params: {organization_id: organization.id, :id => room.to_param}, session: valid_session
       }.to change(Room, :count).by(-1)
     end
 
     it "redirects to the rooms list" do
-      room = FactoryGirl.create(:room)
-      delete :destroy, params: {:id => room.to_param}, session: valid_session
-      expect(response).to redirect_to(rooms_url)
+      room = FactoryGirl.create(:room, organization: organization)
+      delete :destroy, params: {organization_id: organization.id, :id => room.to_param}, session: valid_session
+      expect(response).to redirect_to(organization_rooms_url(organization_id: organization.id))
     end
   end
 
