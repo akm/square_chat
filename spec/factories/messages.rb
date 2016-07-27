@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :message do
-    room nil
-    user nil
-    content "MyText"
+    association :room, factory: :room
+    association :user, factory: :user
+    content "Message1"
   end
 end

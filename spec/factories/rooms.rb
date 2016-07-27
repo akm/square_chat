@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :room do
-    organization nil
-    name "MyString"
+    association :organization, factory: :organization
+    name "general"
   end
 end
