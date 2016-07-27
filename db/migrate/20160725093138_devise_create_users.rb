@@ -1,23 +1,24 @@
+# coding: utf-8
 class DeviseCreateUsers < ActiveRecord::Migration[5.0]
   def change
-    create_table :users do |t|
+    create_table :users, comment: 'ユーザ' do |t|
       ## Database authenticatable
-      t.string :email,              null: false, default: ""
-      t.string :encrypted_password, null: false, default: ""
+      t.string :email,              null: false, default: "", comment: 'メールアドレス'
+      t.string :encrypted_password, null: false, default: "", comment: '暗号化済みパスワード'
 
       ## Recoverable
-      t.string   :reset_password_token
-      t.datetime :reset_password_sent_at
+      t.string   :reset_password_token  , comment: 'パスワードトークン'
+      t.datetime :reset_password_sent_at, comment: 'パスワードトークン送信日時'
 
       ## Rememberable
-      t.datetime :remember_created_at
+      t.datetime :remember_created_at, comment: 'ログイン記憶日時'
 
       ## Trackable
-      t.integer  :sign_in_count, default: 0, null: false
-      t.datetime :current_sign_in_at
-      t.datetime :last_sign_in_at
-      t.string   :current_sign_in_ip
-      t.string   :last_sign_in_ip
+      t.integer  :sign_in_count, default: 0, null: false, comment: 'ログイン回数'
+      t.datetime :current_sign_in_at, comment: '現在ログイン日時'
+      t.datetime :last_sign_in_at   , comment: '前回ログイン日時'
+      t.string   :current_sign_in_ip, comment: '現在ログインIP'
+      t.string   :last_sign_in_ip   , comment: '前回ログインIP'
 
       ## Confirmable
       # t.string   :confirmation_token
