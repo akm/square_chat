@@ -1,14 +1,16 @@
 require 'rails_helper'
 
 RSpec.describe "rooms/new", type: :view do
+  let(:organization){ FactoryGirl.create(:organization) }
   before(:each) do
-    assign(:room, FactoryGirl.build(:room))
+    assign(:organization, organization)
+    assign(:room, FactoryGirl.build(:room, organization: organization))
   end
 
   it "renders new room form" do
     render
 
-    assert_select "form[action=?][method=?]", rooms_path, "post" do
+    assert_select "form[action=?][method=?]", organization_rooms_path(organization), "post" do
 
       assert_select "input#room_organization_id[name=?]", "room[organization_id]"
 

@@ -1,4 +1,9 @@
-<%= form_for @room, :html => { :class => "form-horizontal room" } do |f| %>
+<%-
+   form_url = @room.new_record? ?
+     organization_rooms_path(organization_id: @organization.id) :
+     organization_room_path(@room, organization_id: @organization.id)
+-%>
+<%= form_for @room, url: form_url, :html => { :class => "form-horizontal room" } do |f| %>
 
   <% if @room.errors.any? %>
     <div id="error_expl" class="panel panel-danger">
@@ -34,7 +39,7 @@
     <div class="col-lg-offset-2 col-lg-10">
       <%= f.submit nil, :class => 'btn btn-primary' %>
       <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-                organization_rooms_path(@ogranization), :class => 'btn btn-default' %>
+                organization_rooms_path(@organization), :class => 'btn btn-default' %>
     </div>
   </div>
 
