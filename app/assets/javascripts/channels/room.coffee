@@ -9,11 +9,12 @@ App.room = App.cable.subscriptions.create "RoomChannel",
     # Called when there's incoming data on the websocket for this channel
     alert data['message']
 
-  speak: (message) ->
-    @perform 'speak', message: message
+  speak: (user_id, room_id, message) ->
+    @perform 'speak', user_id: user_id, room_id: room_id, message: message
 
 $(document).on 'keypress', '[data-behavior~=room_speaker]', (event) ->
   if event.keyCode is 13 # return = send
-    App.room.speak event.target.value
-    event.target.value = ''
+    t = event.target
+    App.room.speak(t.getAttribute('data-user-id'), t.getAttribute('data-room-id'), t.value)
+    t.value = ''
     event.preventDefault()
