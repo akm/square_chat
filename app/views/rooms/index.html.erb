@@ -6,5 +6,5 @@
 <%= render 'rooms/table', rooms: @rooms %>
 
 <%= link_to t('.new', :default => t("helpers.links.new")),
-            new_room_path,
+            new_organization_room_path(@organization),
             :class => 'btn btn-primary' %>
