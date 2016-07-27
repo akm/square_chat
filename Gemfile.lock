@@ -1,4 +1,10 @@
 GIT
+  remote: git@github.com:akm/akm_rails_generators.git
+  revision: a85ce6e32e20b53b4c30a229059c4aa46cc05efe
+  specs:
+    akm_rails_generators (0.0.1)
+
+GIT
   remote: https://github.com/akm/pretty_validation.git
   revision: ef7ea8dfab182f678b241cea9424fb07471ae7ae
   specs:
@@ -270,6 +276,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  akm_rails_generators!
   annotate
   better_errors
   binding_of_caller

@@ -70,3 +70,5 @@ group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
 end
+
+gem 'akm_rails_generators', git: 'git@github.com:akm/akm_rails_generators.git'
