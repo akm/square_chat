@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   resources :organizations
+  resources :rooms
 
   devise_for :users
   # root to: "devise/sessions#new" # Sign in
