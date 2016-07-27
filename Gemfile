@@ -71,4 +71,8 @@ group :development do
   gem 'binding_of_caller'
 end
 
+group :test do
+  gem 'rails-controller-testing'
+end
+
 gem 'akm_rails_generators', git: 'git@github.com:akm/akm_rails_generators.git'
