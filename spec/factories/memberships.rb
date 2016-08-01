@@ -1,7 +1,8 @@
 FactoryGirl.define do
   factory :membership do
-    organization nil
-    user nil
+    association :organization, factory: :organization
+    association :user, factory: :user
+    name 'member1'
     role 1
   end
 end
