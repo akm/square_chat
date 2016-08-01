@@ -76,4 +76,5 @@ group :test do
   gem 'rails-controller-testing'
 end
 
-gem 'akm_rails_generators', git: 'git@github.com:akm/akm_rails_generators.git'
+gem 'akm_rails_generators', path: "#{ENV['HOME']}/workspace/akm_rails_generators"
+# gem 'akm_rails_generators', git: 'git@github.com:akm/akm_rails_generators.git'

@@ -1,15 +1,14 @@
 GIT
-  remote: git@github.com:akm/akm_rails_generators.git
-  revision: a85ce6e32e20b53b4c30a229059c4aa46cc05efe
-  specs:
-    akm_rails_generators (0.0.1)
-
-GIT
   remote: https://github.com/akm/pretty_validation.git
   revision: 157a4a7789b055d73adeeb52bbcb045ee4123ef1
   specs:
     pretty_validation (0.3.0)
       rails (>= 4.0.0)
+
+PATH
+  remote: /Users/akima/workspace/akm_rails_generators
+  specs:
+    akm_rails_generators (0.0.1)
 
 GEM
   remote: https://rubygems.org/
