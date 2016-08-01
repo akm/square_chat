@@ -34,7 +34,7 @@ RSpec.describe MembershipsController, type: :controller do
   }
 
   let(:invalid_parameters) {
-    valid_parameters.merge('name' => '')
+    valid_parameters.symbolize_keys.merge(name: '')
   }
 
   # This should return the minimal set of values that should be in the session
