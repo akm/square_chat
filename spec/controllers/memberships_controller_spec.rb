@@ -20,19 +20,21 @@ require 'rails_helper'
 
 RSpec.describe MembershipsController, type: :controller do
 
-  login_user
   let(:organization){ FactoryGirl.create(:organization) }
   let(:user){ FactoryGirl.create(:user) }
+  before{ devise_user_login(user) }
+
+  let(:membership){ FactoryGirl.create(:membership, organization: organization, user: user) }
 
   # This should return the minimal set of attributes required to create a valid
   # Membership. As you add validations to Membership, be sure to
   # adjust the attributes here as well.
-  let(:valid_attributes) {
+  let(:valid_parameters) {
     FactoryGirl.attributes_for(:membership).merge(organization_id: organization.id, user_id: user.id)
   }
 
-  let(:invalid_attributes) {
-    valid_attributes.merge('name' => '')
+  let(:invalid_parameters) {
+    valid_parameters.merge('name' => '')
   }
 
   # This should return the minimal set of values that should be in the session
@@ -42,7 +44,6 @@ RSpec.describe MembershipsController, type: :controller do
 
   describe "GET #index" do
     it "assigns all memberships as @memberships" do
-      membership = FactoryGirl.create(:membership)
       get :index, {}, valid_session
       expect(assigns(:memberships)).to eq([membership])
     end
@@ -50,7 +51,7 @@ RSpec.describe MembershipsController, type: :controller do
 
   describe "GET #show" do
     it "assigns the requested membership as @membership" do
-      membership = FactoryGirl.create(:membership)
+      membership # To create membership
       get :show, {:id => membership.to_param}, valid_session
       expect(assigns(:membership)).to eq(membership)
     end
@@ -65,7 +66,7 @@ RSpec.describe MembershipsController, type: :controller do
 
   describe "GET #edit" do
     it "assigns the requested membership as @membership" do
-      membership = FactoryGirl.create(:membership)
+      membership # To create membership
       get :edit, {:id => membership.to_param}, valid_session
       expect(assigns(:membership)).to eq(membership)
     end
@@ -75,30 +76,30 @@ RSpec.describe MembershipsController, type: :controller do
     context "with valid params" do
       it "creates a new Membership" do
         expect {
-          post :create, {:membership => valid_attributes}, valid_session
+          post :create, {:membership => valid_parameters}, valid_session
         }.to change(Membership, :count).by(1)
       end
 
       it "assigns a newly created membership as @membership" do
-        post :create, {:membership => valid_attributes}, valid_session
+        post :create, {:membership => valid_parameters}, valid_session
         expect(assigns(:membership)).to be_a(Membership)
         expect(assigns(:membership)).to be_persisted
       end
 
       it "redirects to the created membership" do
-        post :create, {:membership => valid_attributes}, valid_session
+        post :create, {:membership => valid_parameters}, valid_session
         expect(response).to redirect_to(Membership.last)
       end
     end
 
     context "with invalid params" do
       it "assigns a newly created but unsaved membership as @membership" do
-        post :create, {:membership => invalid_attributes}, valid_session
+        post :create, {:membership => invalid_parameters}, valid_session
         expect(assigns(:membership)).to be_a_new(Membership)
       end
 
       it "re-renders the 'new' template" do
-        post :create, {:membership => invalid_attributes}, valid_session
+        post :create, {:membership => invalid_parameters}, valid_session
         expect(response).to render_template("new")
       end
     end
@@ -106,44 +107,44 @@ RSpec.describe MembershipsController, type: :controller do
 
   describe "PUT #update" do
     context "with valid params" do
-      let(:new_name){ valid_attributes[:name].succ }
-      let(:new_role){ valid_attributes[:role].succ }
+      let(:new_name){ valid_parameters[:name].succ }
+      let(:new_role){ valid_parameters[:role].succ }
 
-      let(:new_attributes) {
-        valid_attributes.merge(name: new_name, role: new_role)
+      let(:new_parameters) {
+        valid_parameters.merge(name: new_name, role: new_role)
       }
 
       it "updates the requested membership" do
-        membership = FactoryGirl.create(:membership)
-        put :update, {:id => membership.to_param, :membership => new_attributes}, valid_session
+        membership # To create membership
+        put :update, {:id => membership.to_param, :membership => new_parameters}, valid_session
         membership.reload
         expect(membership.name).to eq new_name
         expect(membership.role).to eq new_role
       end
 
       it "assigns the requested membership as @membership" do
-        membership = FactoryGirl.create(:membership)
-        put :update, {:id => membership.to_param, :membership => valid_attributes}, valid_session
+        membership # To create membership
+        put :update, {:id => membership.to_param, :membership => valid_parameters}, valid_session
         expect(assigns(:membership)).to eq(membership)
       end
 
       it "redirects to the membership" do
-        membership = FactoryGirl.create(:membership)
-        put :update, {:id => membership.to_param, :membership => valid_attributes}, valid_session
+        membership # To create membership
+        put :update, {:id => membership.to_param, :membership => valid_parameters}, valid_session
         expect(response).to redirect_to(membership)
       end
     end
 
     context "with invalid params" do
       it "assigns the membership as @membership" do
-        membership = FactoryGirl.create(:membership)
-        put :update, {:id => membership.to_param, :membership => invalid_attributes}, valid_session
+        membership # To create membership
+        put :update, {:id => membership.to_param, :membership => invalid_parameters}, valid_session
         expect(assigns(:membership)).to eq(membership)
       end
 
       it "re-renders the 'edit' template" do
-        membership = FactoryGirl.create(:membership)
-        put :update, {:id => membership.to_param, :membership => invalid_attributes}, valid_session
+        membership # To create membership
+        put :update, {:id => membership.to_param, :membership => invalid_parameters}, valid_session
         expect(response).to render_template("edit")
       end
     end
@@ -151,14 +152,14 @@ RSpec.describe MembershipsController, type: :controller do
 
   describe "DELETE #destroy" do
     it "destroys the requested membership" do
-      membership = FactoryGirl.create(:membership)
+      membership # To create membership
       expect {
         delete :destroy, {:id => membership.to_param}, valid_session
       }.to change(Membership, :count).by(-1)
     end
 
     it "redirects to the memberships list" do
-      membership = FactoryGirl.create(:membership)
+      membership # To create membership
       delete :destroy, {:id => membership.to_param}, valid_session
       expect(response).to redirect_to(memberships_url)
     end
