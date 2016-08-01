@@ -8,4 +8,10 @@ class Membership < ApplicationRecord
     'reader' => 3,
   }.freeze
   enum role: ROLE_MAP
+
+  ROLE_VALUE_STRS = ROLE_MAP.values.map(&:to_s).freeze
+  def role=(value)
+    value = value.to_i if ROLE_VALUE_STRS.include?(value)
+    super(value)
+  end
 end
