@@ -119,7 +119,7 @@ RSpec.describe MembershipsController, type: :controller do
         put :update, {:id => membership.to_param, :membership => new_parameters}, valid_session
         membership.reload
         expect(membership.name).to eq new_name
-        expect(membership.role).to eq new_role
+        expect(membership.role_before_type_cast).to eq new_role
       end
 
       it "assigns the requested membership as @membership" do
