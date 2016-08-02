@@ -3,7 +3,7 @@
   <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
 </div>
 
-<%= render 'memberships/table' %> 
+<%= render 'memberships/table', organization: @organization, memberships: @memberships %>
 
 <%= link_to t('.new', :default => t("helpers.links.new")),
             new_organization_membership_path(@organization),

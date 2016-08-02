@@ -12,9 +12,9 @@
     </tr>
   </thead>
   <tbody>
-    <% @memberships.each do |membership| %>
+    <% memberships.each do |membership| %>
       <tr>
-        <td><%= link_to membership.id, organization_membership_path(@organization, membership) %></td>
+        <td><%= link_to membership.id, organization_membership_path(organization, membership) %></td>
         <td><%= membership.organization_id %></td>
         <td><%= membership.user_id %></td>
         <td><%= membership.name %></td>
@@ -22,9 +22,9 @@
         <td><%=l membership.created_at %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                      edit_organization_membership_path(@organization, membership), :class => 'btn btn-default btn-xs' %>
+                      edit_organization_membership_path(organization, membership), :class => 'btn btn-default btn-xs' %>
           <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-                      organization_membership_path(@organization, membership),
+                      organization_membership_path(organization, membership),
                       :method => :delete,
                       :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
                       :class => 'btn btn-xs btn-danger' %>
