@@ -12,9 +12,21 @@
   </h1>
 </div>
 
+<h2><%=t '.title', :default => Room.model_name.human.pluralize.titleize %></h2>
+
 <%= render 'rooms/table', rooms: @rooms %>
+
+<%= link_to t('.new', :default => t("helpers.links.new")),
+            new_organization_room_path(@organization),
+            :class => 'btn btn-primary' %>
+
+
+<h2><%=t '.title', :default => Membership.model_name.human.pluralize.titleize %></h2>
 
 <%= render 'memberships/table', organization: @organization, memberships: @organization.memberships %>
 
+<%= link_to t('.new', :default => t("helpers.links.new")),
+            new_organization_membership_path(@organization),
+            :class => 'btn btn-primary' %>
 
 
