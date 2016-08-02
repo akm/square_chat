@@ -33,11 +33,11 @@ RSpec.describe Membership, type: :model do
     context :reader do
       context :owner do
         let(:membership){ Membership.new(role: 1) }
-        it{ expect(membership.role == 1      ).to be_falsy  }
+        it{ expect(membership.role == 1      ).to be_truthy }
         it{ expect(membership.role_before_type_cast == 1).to be_truthy }
         it{ expect(membership.role == '1'    ).to be_falsy  }
         it{ expect(membership.role == 'owner').to be_truthy }
-        it{ expect(membership.role == :owner ).to be_falsy  }
+        it{ expect(membership.role == :owner ).to be_truthy }
         it{ expect(membership.role == 2       ).to be_falsy }
         it{ expect(membership.role == '2'     ).to be_falsy }
         it{ expect(membership.role == 'writer').to be_falsy }
