@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
-  resources :memberships
   resources :organizations do
+    resources :memberships
     resources :rooms
   end
 
