@@ -1,4 +1,9 @@
-<%= form_for @membership, :html => { :class => "form-horizontal membership" } do |f| %>
+<%-
+   form_url = @membership.new_record? ?
+     organization_memberships_path(@organization) :
+     organization_membership_path(@organization, @membership)
+-%>
+<%= form_for @membership, url: form_url, :html => { :class => "form-horizontal membership" } do |f| %>
 
   <% if @membership.errors.any? %>
     <div id="error_expl" class="panel panel-danger">
@@ -48,7 +53,7 @@
     <div class="col-lg-offset-2 col-lg-10">
       <%= f.submit nil, :class => 'btn btn-primary' %>
       <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-                memberships_path, :class => 'btn btn-default' %>
+                organization_memberships_path(@organization), :class => 'btn btn-default' %>
     </div>
   </div>
 
