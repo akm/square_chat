@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   resources :organizations do
-    resources :memberships
+    resources :memberships do
+      get :autocomplete_user_email, on: :collection
+    end
     resources :rooms
   end
 
