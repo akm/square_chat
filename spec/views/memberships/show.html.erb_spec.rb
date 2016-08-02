@@ -7,9 +7,6 @@ RSpec.describe "memberships/show", type: :view do
 
   it "renders attributes in <p>" do
     render
-    expect(rendered).to match(//)
-    expect(rendered).to match(//)
-    expect(rendered).to match(/Name/)
-    expect(rendered).to match(/2/)
+    expect(rendered).to match(/member1/)
   end
 end
