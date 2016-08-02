@@ -1,18 +1,18 @@
 <%-
-   form_url = @membership.new_record? ?
-     organization_memberships_path(@organization) :
-     organization_membership_path(@organization, @membership)
+   form_url = membership.new_record? ?
+     organization_memberships_path(organization) :
+     organization_membership_path(organization, membership)
 -%>
-<%= form_for @membership, url: form_url, :html => { :class => "form-horizontal membership" } do |f| %>
+<%= form_for membership, url: form_url, :html => { :class => "form-horizontal membership" } do |f| %>
 
-  <% if @membership.errors.any? %>
+  <% if membership.errors.any? %>
     <div id="error_expl" class="panel panel-danger">
       <div class="panel-heading">
-        <h3 class="panel-title"><%= pluralize(@membership.errors.count, "error") %> prohibited this membership from being saved:</h3>
+        <h3 class="panel-title"><%= pluralize(membership.errors.count, "error") %> prohibited this membership from being saved:</h3>
       </div>
       <div class="panel-body">
         <ul>
-        <% @membership.errors.full_messages.each do |msg| %>
+        <% membership.errors.full_messages.each do |msg| %>
           <li><%= msg %></li>
         <% end %>
         </ul>
@@ -53,7 +53,7 @@
     <div class="col-lg-offset-2 col-lg-10">
       <%= f.submit nil, :class => 'btn btn-primary' %>
       <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-                organization_memberships_path(@organization), :class => 'btn btn-default' %>
+                organization_memberships_path(organization), :class => 'btn btn-default' %>
     </div>
   </div>
 
