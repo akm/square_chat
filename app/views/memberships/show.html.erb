@@ -15,11 +15,11 @@
 </dl>
 
 <%= link_to t('.back', :default => t("helpers.links.back")),
-              memberships_path, :class => 'btn btn-default'  %>
+              organization_memberships_path(@organization), :class => 'btn btn-default'  %>
 <%= link_to t('.edit', :default => t("helpers.links.edit")),
-              edit_membership_path(@membership), :class => 'btn btn-default' %>
+              edit_organization_membership_path(@organization, @membership), :class => 'btn btn-default' %>
 <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-              membership_path(@membership),
+              organization_membership_path(@organization, @membership),
               :method => 'delete',
               :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
               :class => 'btn btn-danger' %>

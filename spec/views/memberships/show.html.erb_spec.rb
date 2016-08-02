@@ -1,8 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe "memberships/show", type: :view do
+  let(:organization){ FactoryGirl.create(:organization) }
   before(:each) do
-    @membership = assign(:membership, FactoryGirl.create(:membership))
+    assign(:organization, organization)
+    @membership = assign(:membership, FactoryGirl.create(:membership, organization: organization))
   end
 
   it "renders attributes in <p>" do
