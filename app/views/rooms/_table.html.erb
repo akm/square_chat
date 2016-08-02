@@ -10,7 +10,7 @@
     </tr>
   </thead>
   <tbody>
-    <% @rooms.each do |room| %>
+    <% rooms.each do |room| %>
       <tr>
         <td><%= link_to room.id, organization_room_path(room.organization, room) %></td>
         <td><%= room.organization_id %></td>
