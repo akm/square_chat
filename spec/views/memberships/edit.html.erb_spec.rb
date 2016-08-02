@@ -12,8 +12,6 @@ RSpec.describe "memberships/edit", type: :view do
 
     assert_select "form[action=?][method=?]", organization_membership_path(organization, @membership), "post" do
 
-      assert_select "input#membership_organization_id[name=?]", "membership[organization_id]"
-
       assert_select "input#membership_user_id[name=?]", "membership[user_id]"
 
       assert_select "input#membership_name[name=?]", "membership[name]"
