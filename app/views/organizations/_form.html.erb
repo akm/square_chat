@@ -1,13 +1,13 @@
-<%= form_for @organization, :html => { :class => "form-horizontal organization" } do |f| %>
+<%= form_for organization, :html => { :class => "form-horizontal organization" } do |f| %>
 
-  <% if @organization.errors.any? %>
+  <% if organization.errors.any? %>
     <div id="error_expl" class="panel panel-danger">
       <div class="panel-heading">
-        <h3 class="panel-title"><%= pluralize(@organization.errors.count, "error") %> prohibited this organization from being saved:</h3>
+        <h3 class="panel-title"><%= pluralize(organization.errors.count, "error") %> prohibited this organization from being saved:</h3>
       </div>
       <div class="panel-body">
         <ul>
-        <% @organization.errors.full_messages.each do |msg| %>
+        <% organization.errors.full_messages.each do |msg| %>
           <li><%= msg %></li>
         <% end %>
         </ul>
