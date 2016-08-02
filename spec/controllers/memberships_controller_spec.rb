@@ -44,7 +44,7 @@ RSpec.describe MembershipsController, type: :controller do
 
   describe "GET #index" do
     it "assigns all memberships as @memberships" do
-      get :index, params: {}, session: valid_session
+      get :index, params: {:organization_id => organization.id}, session: valid_session
       expect(assigns(:memberships)).to eq([membership])
     end
   end
@@ -52,14 +52,14 @@ RSpec.describe MembershipsController, type: :controller do
   describe "GET #show" do
     it "assigns the requested membership as @membership" do
       membership # To create membership
-      get :show, params: {:id => membership.to_param}, session: valid_session
+      get :show, params: {:organization_id => organization.id, :id => membership.to_param}, session: valid_session
       expect(assigns(:membership)).to eq(membership)
     end
   end
 
   describe "GET #new" do
     it "assigns a new membership as @membership" do
-      get :new, params: {}, session: valid_session
+      get :new, params: {:organization_id => organization.id}, session: valid_session
       expect(assigns(:membership)).to be_a_new(Membership)
     end
   end
@@ -67,7 +67,7 @@ RSpec.describe MembershipsController, type: :controller do
   describe "GET #edit" do
     it "assigns the requested membership as @membership" do
       membership # To create membership
-      get :edit, params: {:id => membership.to_param}, session: valid_session
+      get :edit, params: {:organization_id => organization.id, :id => membership.to_param}, session: valid_session
       expect(assigns(:membership)).to eq(membership)
     end
   end
@@ -76,30 +76,30 @@ RSpec.describe MembershipsController, type: :controller do
     context "with valid params" do
       it "creates a new Membership" do
         expect {
-          post :create, params: {:membership => valid_parameters}, session: valid_session
+          post :create, params: {:organization_id => organization.id, :membership => valid_parameters}, session: valid_session
         }.to change(Membership, :count).by(1)
       end
 
       it "assigns a newly created membership as @membership" do
-        post :create, params: {:membership => valid_parameters}, session: valid_session
+        post :create, params: {:organization_id => organization.id, :membership => valid_parameters}, session: valid_session
         expect(assigns(:membership)).to be_a(Membership)
         expect(assigns(:membership)).to be_persisted
       end
 
       it "redirects to the created membership" do
-        post :create, params: {:membership => valid_parameters}, session: valid_session
+        post :create, params: {:organization_id => organization.id, :membership => valid_parameters}, session: valid_session
         expect(response).to redirect_to(Membership.last)
       end
     end
 
     context "with invalid params" do
       it "assigns a newly created but unsaved membership as @membership" do
-        post :create, params: {:membership => invalid_parameters}, session: valid_session
+        post :create, params: {:organization_id => organization.id, :membership => invalid_parameters}, session: valid_session
         expect(assigns(:membership)).to be_a_new(Membership)
       end
 
       it "re-renders the 'new' template" do
-        post :create, params: {:membership => invalid_parameters}, session: valid_session
+        post :create, params: {:organization_id => organization.id, :membership => invalid_parameters}, session: valid_session
         expect(response).to render_template("new")
       end
     end
@@ -116,7 +116,7 @@ RSpec.describe MembershipsController, type: :controller do
 
       it "updates the requested membership" do
         membership # To create membership
-        put :update, params: {:id => membership.to_param, :membership => new_parameters}, session: valid_session
+        put :update, params: {:organization_id => organization.id, :id => membership.to_param, :membership => new_parameters}, session: valid_session
         membership.reload
         expect(membership.name).to eq new_name
         expect(membership.role).to eq new_role
@@ -124,13 +124,13 @@ RSpec.describe MembershipsController, type: :controller do
 
       it "assigns the requested membership as @membership" do
         membership # To create membership
-        put :update, params: {:id => membership.to_param, :membership => valid_parameters}, session: valid_session
+        put :update, params: {:organization_id => organization.id, :id => membership.to_param, :membership => valid_parameters}, session: valid_session
         expect(assigns(:membership)).to eq(membership)
       end
 
       it "redirects to the membership" do
         membership # To create membership
-        put :update, params: {:id => membership.to_param, :membership => valid_parameters}, session: valid_session
+        put :update, params: {:organization_id => organization.id, :id => membership.to_param, :membership => valid_parameters}, session: valid_session
         expect(response).to redirect_to(membership)
       end
     end
@@ -138,13 +138,13 @@ RSpec.describe MembershipsController, type: :controller do
     context "with invalid params" do
       it "assigns the membership as @membership" do
         membership # To create membership
-        put :update, params: {:id => membership.to_param, :membership => invalid_parameters}, session: valid_session
+        put :update, params: {:organization_id => organization.id, :id => membership.to_param, :membership => invalid_parameters}, session: valid_session
         expect(assigns(:membership)).to eq(membership)
       end
 
       it "re-renders the 'edit' template" do
         membership # To create membership
-        put :update, params: {:id => membership.to_param, :membership => invalid_parameters}, session: valid_session
+        put :update, params: {:organization_id => organization.id, :id => membership.to_param, :membership => invalid_parameters}, session: valid_session
         expect(response).to render_template("edit")
       end
     end
@@ -154,13 +154,13 @@ RSpec.describe MembershipsController, type: :controller do
     it "destroys the requested membership" do
       membership # To create membership
       expect {
-        delete :destroy, params: {:id => membership.to_param}, session: valid_session
+        delete :destroy, params: {:organization_id => organization.id, :id => membership.to_param}, session: valid_session
       }.to change(Membership, :count).by(-1)
     end
 
     it "redirects to the memberships list" do
       membership # To create membership
-      delete :destroy, params: {:id => membership.to_param}, session: valid_session
+      delete :destroy, params: {:organization_id => organization.id, :id => membership.to_param}, session: valid_session
       expect(response).to redirect_to(memberships_url)
     end
   end
