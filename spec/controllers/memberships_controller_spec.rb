@@ -131,7 +131,7 @@ RSpec.describe MembershipsController, type: :controller do
       it "redirects to the membership" do
         membership # To create membership
         put :update, params: {:organization_id => organization.id, :id => membership.to_param, :membership => valid_parameters}, session: valid_session
-        expect(response).to redirect_to(membership)
+        expect(response).to redirect_to(organization_membership_path(organization, membership))
       end
     end
 
@@ -161,7 +161,7 @@ RSpec.describe MembershipsController, type: :controller do
     it "redirects to the memberships list" do
       membership # To create membership
       delete :destroy, params: {:organization_id => organization.id, :id => membership.to_param}, session: valid_session
-      expect(response).to redirect_to(memberships_url)
+      expect(response).to redirect_to(organization_memberships_url(organization))
     end
   end
 
