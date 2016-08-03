@@ -45,7 +45,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="#">SquareChat</a>
+        <%= link_to "SquareChat", root_path, class: "navbar-brand" %>
         <div class="navbar-collapse collapse navbar-responsive-collapse">
           <% if user_signed_in? %>
             <ul class="nav navbar-nav">
@@ -67,15 +67,12 @@
       <div class="row">
         <div class="col-lg-2">
           <%- if @organization -%>
-            <div class="well sidebar-nav">
-              <ul class="nav nav-pills nav-list">
-                <%- @organization.rooms.each do |room| -%>
-                  <%- class_name = (room.id == @room.try(:id)) ? 'active' : nil -%>
-                  <%= content_tag :li, link_to(room.name, organization_room_path(@organization, room)), class: class_name %>
-                <%- end -%>
-                <hr/>
-                <li><%= link_to "New Room", new_organization_room_path(@organization) %></li>
-                <li><%= link_to "Members", organization_memberships_path(@organization) %></li>
+            <div class="btn-group-vertical" role="group">
+              <%- @organization.rooms.each do |room| -%>
+                <%= button_link_to room.name, organization_room_path(@organization, room), role: 'group', class: 'btn btn-default' %>
+              <%- end -%>
+              <%= button_link_to "New Room", new_organization_room_path(@organization)   , role: 'group', class: 'btn btn-default' %>
+              <%= button_link_to "Members" , organization_memberships_path(@organization), role: 'group', class: 'btn btn-default' %>
               </ul>
             </div><!--/.well -->
           <%- end -%>
@@ -93,4 +90,9 @@
     </div> <!-- /container -->
 
   </body>
+<%= javascript_tag defer: 'defer' do -%>
+$('button.button_link').on('click', function(event){
+    Turbolinks.visit(event.target.getAttribute("data-href"));
+});
+<% end -%>
 </html>
