@@ -13,3 +13,15 @@
  *= require_tree .
  *= require_self
  */
+
+.footer {
+    bottom: 5px;
+}
+
+.inside-scrollable {
+    overflow: scroll;
+}
+
+.message-input-row {
+    bottom: 10px;
+}

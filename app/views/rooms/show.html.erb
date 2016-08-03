@@ -1,14 +1,25 @@
 <%- model_class = ::Room -%>
 
-<div id="messages">
+<div id="messages" class="inside-scrollable">
   <%= render @messages %>
 </div>
 
+<div class="message-input-row">
 <form>
-  <label>Say something:</label><br>
   <%= text_field_tag nil, nil, id: nil,
       :'data-behavior' => "room_speaker",
       :'data-room-id' => @room.id,
       :'data-user-id' => User.current_user.id
   %>
 </form>
+</div>
+
+<%= javascript_tag defer: 'defer' do -%>
+(function(){
+  var adjust = function() {
+    $('#messages').css('max-height', ($(window).height() - 100) + 'px');
+  };
+  adjust();
+  $(window).on('resize', adjust);
+})();
+<% end -%>
