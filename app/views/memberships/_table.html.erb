@@ -8,7 +8,7 @@
     </tr>
   </thead>
   <tbody>
-    <% memberships.each do |membership| %>
+    <% memberships.includes(:user).each do |membership| %>
       <tr>
         <td><%= link_to membership.name, organization_membership_path(organization, membership) %></td>
         <td><%= membership.user_email %></td>
