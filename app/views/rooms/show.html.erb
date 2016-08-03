@@ -20,6 +20,7 @@
     $('#messages').css('max-height', ($(window).height() - 100) + 'px');
   };
   adjust();
+  $('#messages').scrollTop($('#messages').get(0).scrollHeight);
   $(window).on('resize', adjust);
 })();
 <% end -%>
