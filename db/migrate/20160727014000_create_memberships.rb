@@ -5,6 +5,7 @@ class CreateMemberships < ActiveRecord::Migration[5.0]
       t.references :organization, null: false, foreign_key: true, comment: '組織'
       t.references :user, null: false, foreign_key: true, comment: 'ユーザー'
       t.string :name, null: false, comment: 'ユーザ名'
+      t.string :image_url, null: false, comment: '画像URL'
       t.integer :role, null: false, comment: '役割'
 
       t.timestamps
