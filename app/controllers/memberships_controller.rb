@@ -30,7 +30,7 @@ class MembershipsController < ApplicationController
   # POST /memberships
   # POST /memberships.json
   def create
-    @membership = Membership.new(membership_params)
+    @membership = @organization.memberships.build(membership_params)
 
     respond_to do |format|
       if @membership.save
@@ -79,6 +79,6 @@ class MembershipsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def membership_params
-      params.require(:membership).permit(:organization_id, :user_email, :name, :role)
+      params.require(:membership).permit(:user_email, :name, :role)
     end
 end

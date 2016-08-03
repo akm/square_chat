@@ -30,7 +30,7 @@ RSpec.describe MembershipsController, type: :controller do
   # Membership. As you add validations to Membership, be sure to
   # adjust the attributes here as well.
   let(:valid_parameters) {
-    FactoryGirl.attributes_for(:membership).merge(organization_id: organization.id, user_id: user.id)
+    FactoryGirl.attributes_for(:membership).merge(user_email: user.email)
   }
 
   let(:invalid_parameters) {
