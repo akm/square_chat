@@ -1,18 +1,18 @@
 <%-
-   form_url = @room.new_record? ?
-     organization_rooms_path(organization_id: @organization.id) :
-     organization_room_path(@room, organization_id: @organization.id)
+   form_url = room.new_record? ?
+     organization_rooms_path(organization_id: organization.id) :
+     organization_room_path(room, organization_id: organization.id)
 -%>
-<%= form_for @room, url: form_url, :html => { :class => "form-horizontal room" } do |f| %>
+<%= form_for room, url: form_url, :html => { :class => "form-horizontal room" } do |f| %>
 
-  <% if @room.errors.any? %>
+  <% if room.errors.any? %>
     <div id="error_expl" class="panel panel-danger">
       <div class="panel-heading">
-        <h3 class="panel-title"><%= pluralize(@room.errors.count, "error") %> prohibited this room from being saved:</h3>
+        <h3 class="panel-title"><%= pluralize(room.errors.count, "error") %> prohibited this room from being saved:</h3>
       </div>
       <div class="panel-body">
         <ul>
-        <% @room.errors.full_messages.each do |msg| %>
+        <% room.errors.full_messages.each do |msg| %>
           <li><%= msg %></li>
         <% end %>
         </ul>
@@ -20,13 +20,6 @@
     </div>
   <% end %>
 
-  <div class="form-group">
-    <%= f.label :organization_id, :class => 'control-label col-lg-2' %>
-    <div class="col-lg-10">
-      <%= f.text_field :organization_id, :class => 'form-control' %>
-    </div>
-    <%=f.error_span(:organization_id) %>
-  </div>
   <div class="form-group">
     <%= f.label :name, :class => 'control-label col-lg-2' %>
     <div class="col-lg-10">
@@ -39,7 +32,7 @@
     <div class="col-lg-offset-2 col-lg-10">
       <%= f.submit nil, :class => 'btn btn-primary' %>
       <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-                organization_rooms_path(@organization), :class => 'btn btn-default' %>
+                organization_rooms_path(organization), :class => 'btn btn-default' %>
     </div>
   </div>
 

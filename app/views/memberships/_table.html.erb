@@ -1,0 +1,19 @@
+<%- model_class = ::Membership -%>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th><%= model_class.human_attribute_name(:name) %></th>
+      <th><%= model_class.human_attribute_name(:user_id) %></th>
+      <th><%= model_class.human_attribute_name(:role) %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% memberships.includes(:user).each do |membership| %>
+      <tr>
+        <td><%= link_to membership.name, organization_membership_path(organization, membership) %></td>
+        <td><%= membership.user_email %></td>
+        <td><%= membership.role %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
