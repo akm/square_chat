@@ -1,3 +1,13 @@
+# == Schema Information
+#
+# Table name: organizations
+#
+#  id         :integer          not null, primary key
+#  name       :string(255)      not null
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+
 class Organization < ApplicationRecord
   has_many :rooms, dependent: :destroy
   has_many :memberships, dependent: :destroy
