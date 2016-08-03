@@ -10,12 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160801065048) do
+ActiveRecord::Schema.define(version: 20160727014412) do
 
   create_table "memberships", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "所属" do |t|
     t.integer  "organization_id", null: false, comment: "組織"
     t.integer  "user_id",         null: false, comment: "ユーザー"
     t.string   "name",            null: false, comment: "ユーザ名"
+    t.string   "image_url",       null: false, comment: "画像URL"
     t.integer  "role",            null: false, comment: "役割"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
