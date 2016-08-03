@@ -5,10 +5,12 @@ RSpec.describe "rooms/show", type: :view do
 
   let(:user){ FactoryGirl.create(:user) }
   let(:organization){ FactoryGirl.create(:organization) }
+  let(:membership){ FactoryGirl.create(:membership, organization: organization, user: user) }
   before(:each) do
     assign(:organization, organization)
+    assign(:membership, membership)
     @room = assign(:room, FactoryGirl.create(:room, organization: organization))
-    @messages = assign(:messages, [FactoryGirl.create(:message, room: @room, user: user)])
+    @messages = assign(:messages, [FactoryGirl.create(:message, room: @room, membership: membership)])
   end
   around{|ex| User.current(user){ ex.run } }
 

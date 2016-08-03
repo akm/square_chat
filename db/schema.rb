@@ -10,12 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160801065048) do
+ActiveRecord::Schema.define(version: 20160727014412) do
 
   create_table "memberships", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "所属" do |t|
     t.integer  "organization_id", null: false, comment: "組織"
     t.integer  "user_id",         null: false, comment: "ユーザー"
     t.string   "name",            null: false, comment: "ユーザ名"
+    t.string   "image_url",       null: false, comment: "画像URL"
     t.integer  "role",            null: false, comment: "役割"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
@@ -24,13 +25,13 @@ ActiveRecord::Schema.define(version: 20160801065048) do
   end
 
   create_table "messages", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "メッセージ" do |t|
-    t.integer  "room_id",                  null: false, comment: "ルーム"
-    t.integer  "user_id",                  null: false, comment: "ユーザ"
-    t.text     "content",    limit: 65535,              comment: "内容"
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.integer  "room_id",                     null: false, comment: "ルーム"
+    t.integer  "membership_id",               null: false, comment: "ユーザ"
+    t.text     "content",       limit: 65535,              comment: "内容"
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.index ["membership_id"], name: "index_messages_on_membership_id", using: :btree
     t.index ["room_id"], name: "index_messages_on_room_id", using: :btree
-    t.index ["user_id"], name: "index_messages_on_user_id", using: :btree
   end
 
   create_table "organizations", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "組織" do |t|
@@ -66,7 +67,7 @@ ActiveRecord::Schema.define(version: 20160801065048) do
 
   add_foreign_key "memberships", "organizations"
   add_foreign_key "memberships", "users"
+  add_foreign_key "messages", "memberships"
   add_foreign_key "messages", "rooms"
-  add_foreign_key "messages", "users"
   add_foreign_key "rooms", "organizations"
 end
