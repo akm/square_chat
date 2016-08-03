@@ -9,7 +9,7 @@
   <%= text_area_tag nil, nil, id: nil, class: 'message-input',
       :'data-behavior' => "room_speaker",
       :'data-room-id' => @room.id,
-      :'data-user-id' => User.current_user.id
+      :'data-membership-id' => @membership.id
   %>
 </form>
 </div>
