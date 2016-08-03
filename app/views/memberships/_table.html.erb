@@ -11,7 +11,7 @@
     <% memberships.each do |membership| %>
       <tr>
         <td><%= link_to membership.name, organization_membership_path(organization, membership) %></td>
-        <td><%= membership.user.email %></td>
+        <td><%= membership.user_email %></td>
         <td><%= membership.role %></td>
       </tr>
     <% end %>
