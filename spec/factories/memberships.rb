@@ -22,6 +22,7 @@ FactoryGirl.define do
     association :organization, factory: :organization
     association :user, factory: :user
     name 'member1'
+    image_url "https://s.gravatar.com/avatar/7ead2ae1d65466dbae54af6ebaaf5ded?s=80"
     role 1
   end
 end
