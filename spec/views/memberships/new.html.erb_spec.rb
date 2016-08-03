@@ -12,7 +12,7 @@ RSpec.describe "memberships/new", type: :view do
 
     assert_select "form[action=?][method=?]", organization_memberships_path(organization), "post" do
 
-      assert_select "input#membership_user_id[name=?]", "membership[user_id]"
+      assert_select "input#membership_user_email[name=?]", "membership[user_email]"
 
       assert_select "input#membership_name[name=?]", "membership[name]"
 
