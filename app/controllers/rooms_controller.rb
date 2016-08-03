@@ -15,7 +15,7 @@ class RoomsController < ApplicationController
   # GET /rooms/1.json
   def show
     @messages = @room.messages.all
-    @membership = @organization.memberships.where(user_id: current_user.id).find
+    @membership = @organization.memberships.where(user_id: current_user.id).first
   end
 
   # GET /rooms/new

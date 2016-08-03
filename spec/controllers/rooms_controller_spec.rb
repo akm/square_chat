@@ -20,8 +20,11 @@ require 'rails_helper'
 
 RSpec.describe RoomsController, type: :controller do
 
-  login_user
+  let(:user){ FactoryGirl.create(:user) }
   let(:organization){ FactoryGirl.create(:organization) }
+  let(:membership){ FactoryGirl.create(:membership, organization: organization, user: user) }
+  before{ membership } # to load membership
+  before{ devise_user_login(user) }
 
   # This should return the minimal set of attributes required to create a valid
   # Room. As you add validations to Room, be sure to
