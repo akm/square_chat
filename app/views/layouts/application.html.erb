@@ -69,8 +69,11 @@
             <div class="well sidebar-nav">
               <ul class="nav nav-list">
                 <%- @organization.rooms.each do |room| -%>
-                  <li><%= link_to room.name, organization_room_path(@organization, room)  %></li>
+                  <li><%= link_to room.name, organization_room_path(@organization, room) %></li>
                 <%- end -%>
+                <hr/>
+                <li><%= link_to "New Room", new_organization_room_path(@organization) %></li>
+                <li><%= link_to "Members", organization_memberships_path(@organization) %></li>
               </ul>
             </div><!--/.well -->
           <%- end -%>
