@@ -8,6 +8,7 @@ RSpec.describe "rooms/show", type: :view do
   let(:membership){ FactoryGirl.create(:membership, organization: organization, user: user) }
   before(:each) do
     assign(:organization, organization)
+    assign(:membership, membership)
     @room = assign(:room, FactoryGirl.create(:room, organization: organization))
     @messages = assign(:messages, [FactoryGirl.create(:message, room: @room, membership: membership)])
   end
