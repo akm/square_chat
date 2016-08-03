@@ -10,4 +10,12 @@ class Membership < ApplicationRecord
     :reader => 3,
   }.freeze
   enumerize :role, in: ROLE_MAP
+
+  def user_email
+    user.try(:email)
+  end
+  def user_email=(value)
+    user = User.where(email: value).first
+    self.user_id = user.try(:id)
+  end
 end
