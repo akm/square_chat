@@ -15,6 +15,12 @@ class Organization < ApplicationRecord
   after_create :create_owner_membership
   def create_owner_membership
     return unless User.current_user
-    memberships.create!(user: User.current_user, role: :owner, name: User.current_user.email.split('@',2).first)
+    attrs = {
+      user: User.current_user,
+      role: :owner,
+      name: User.current_user.email.split('@',2).first,
+      image_url: '/smiley.png'
+    }
+    memberships.create!(attrs)
   end
 end
