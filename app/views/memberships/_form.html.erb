@@ -23,7 +23,7 @@
   <div class="form-group">
     <%= f.label :user_id, :class => 'control-label col-lg-2' %>
     <div class="col-lg-10">
-      <%= f.autocomplete_field :user_id, autocomplete_user_email_organization_memberships_path(organization) %>
+      <%= f.autocomplete_field :user_id, autocomplete_user_email_organization_memberships_path(organization), :class => 'form-control' %>
     </div>
     <%=f.error_span(:user_id) %>
   </div>
