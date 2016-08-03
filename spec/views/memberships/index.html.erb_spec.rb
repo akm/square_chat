@@ -8,10 +8,13 @@ RSpec.describe "memberships/index", type: :view do
 
   before(:each) do
     assign(:organization, organization)
-    assign(:memberships, [
+    memberships = [
       FactoryGirl.create(:membership, user: user1, name: 'member1', organization: organization),
       FactoryGirl.create(:membership, user: user2, name: 'member2', organization: organization),
-    ])
+    ]
+    query = double(:query)
+    expect(query).to receive(:includes).with(:user).and_return(memberships)
+    assign(:memberships, query)
   end
 
   it "renders a list of memberships" do

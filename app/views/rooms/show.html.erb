@@ -1,34 +1,26 @@
 <%- model_class = ::Room -%>
-<div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
-</div>
 
-<dl class="dl-horizontal">
-  <dt><strong><%= model_class.human_attribute_name(:organization_id) %>:</strong></dt>
-  <dd><%= @room.organization_id %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:name) %>:</strong></dt>
-  <dd><%= @room.name %></dd>
-</dl>
-
-<div id="messages">
+<div id="messages" class="inside-scrollable">
   <%= render @messages %>
 </div>
 
+<div class="message-input-row">
 <form>
-  <label>Say something:</label><br>
-  <%= text_field_tag nil, nil, id: nil,
+  <%= text_area_tag nil, nil, id: nil, class: 'message-input',
       :'data-behavior' => "room_speaker",
       :'data-room-id' => @room.id,
       :'data-user-id' => User.current_user.id
   %>
 </form>
+</div>
 
-<%= link_to t('.back', :default => t("helpers.links.back")),
-              organization_rooms_path(@organization), :class => 'btn btn-default'  %>
-<%= link_to t('.edit', :default => t("helpers.links.edit")),
-              edit_organization_room_path(@organization, @room), :class => 'btn btn-default' %>
-<%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-              organization_room_path(@organization, @room),
-              :method => 'delete',
-              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-              :class => 'btn btn-danger' %>
+<%= javascript_tag defer: 'defer' do -%>
+(function(){
+  var adjust = function() {
+    $('#messages').css('max-height', ($(window).height() - 140) + 'px');
+  };
+  adjust();
+  $('#messages').scrollTop($('#messages').get(0).scrollHeight);
+  $(window).on('resize', adjust);
+})();
+<% end -%>
