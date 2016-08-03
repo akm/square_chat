@@ -69,10 +69,13 @@
           <%- if @organization -%>
             <div class="btn-group-vertical" role="group">
               <%- @organization.rooms.each do |room| -%>
-                <%= button_link_to room.name, organization_room_path(@organization, room), role: 'group', class: 'btn btn-default' %>
+                <%= button_link_to(room.name, organization_room_path(@organization, room), role: 'group'){|opts|
+                    opts[:class] = (room.id == @room.try(:id)) ? 'btn btn-primary' : 'btn btn-default' } %>
               <%- end -%>
-              <%= button_link_to "New Room", new_organization_room_path(@organization)   , role: 'group', class: 'btn btn-default' %>
-              <%= button_link_to "Members" , organization_memberships_path(@organization), role: 'group', class: 'btn btn-default' %>
+              <%= button_link_to("New Room", new_organization_room_path(@organization), role: 'group'){|opts|
+                  opts[:class] = (controller_name == 'rooms' && action_name == 'new') ? 'btn btn-primary' : 'btn btn-default' } %>
+              <%= button_link_to("Members" , organization_memberships_path(@organization), role: 'group'){|opts|
+                  opts[:class] = (controller_name == 'memberships') ? 'btn btn-primary' : 'btn btn-default' } %>
               </ul>
             </div><!--/.well -->
           <%- end -%>
