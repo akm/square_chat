@@ -50,7 +50,8 @@
           <% if user_signed_in? %>
             <ul class="nav navbar-nav">
               <%- current_user.organizations.each do |org| -%>
-                <li><%= link_to org.name, organization_path(org)  %></li>
+                <%- class_name = (org.id == @organization.try(:id)) ? 'active' : nil -%>
+                <%= content_tag :li, link_to(org.name, organization_path(org)), class: class_name %>
               <%- end -%>
             </ul>
             <ul class="nav navbar-nav navbar-right">
@@ -67,9 +68,10 @@
         <div class="col-lg-2">
           <%- if @organization -%>
             <div class="well sidebar-nav">
-              <ul class="nav nav-list">
+              <ul class="nav nav-pills nav-list">
                 <%- @organization.rooms.each do |room| -%>
-                  <li><%= link_to room.name, organization_room_path(@organization, room) %></li>
+                  <%- class_name = (room.id == @room.try(:id)) ? 'active' : nil -%>
+                  <%= content_tag :li, link_to(room.name, organization_room_path(@organization, room)), class: class_name %>
                 <%- end -%>
                 <hr/>
                 <li><%= link_to "New Room", new_organization_room_path(@organization) %></li>
