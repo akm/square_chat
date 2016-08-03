@@ -2,6 +2,7 @@
 <table class="table table-striped">
   <thead>
     <tr>
+      <th></th>
       <th><%= model_class.human_attribute_name(:name) %></th>
       <th><%= model_class.human_attribute_name(:user_id) %></th>
       <th><%= model_class.human_attribute_name(:role) %></th>
@@ -10,6 +11,7 @@
   <tbody>
     <% memberships.includes(:user).each do |membership| %>
       <tr>
+        <td><%= link_to(image_tag(membership.image_url, class: 'user-icon'), organization_membership_path(organization, membership)) %></td>
         <td><%= link_to membership.name, organization_membership_path(organization, membership) %></td>
         <td><%= membership.user_email %></td>
         <td><%= membership.role %></td>
