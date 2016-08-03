@@ -33,3 +33,11 @@
 .message-input-row {
     bottom: 10px;
 }
+
+.message .user_name {
+    font-size: small;
+}
+.message .sent_at {
+    font-color: lighten(#000, 93.5%);
+    font-size: small;
+}

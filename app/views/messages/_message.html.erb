@@ -1,3 +1,10 @@
 <div class="message">
-  <p><%= message.content %></p>
+
+  <span class="user_name">@<%= message.membership.name %></span>
+  <span class="sent_at text-muted"><%= message_sent_at(message) %></span>
+  <span><%= message.content %></span>
 </div>
+<%-
+   @last_membership_id = message.membership_id
+   @last_sent_at       = message.created_at
+-%>
