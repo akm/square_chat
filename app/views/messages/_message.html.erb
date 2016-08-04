@@ -8,12 +8,12 @@
     <%- if continuous -%>
       <span class="sent_at text-muted"><%= message_sent_at(message) %></span>
     <%- else -%>
-      <%= image_tag(message.membership.image_url, class: 'user-icon') %>
+      <%= image_tag(message.membership_image_url, class: 'user-icon') %>
     <%- end -%>
   </div>
   <div class="col-sm-11">
     <%- unless continuous -%>
-      <span class="user_name">@<%= message.membership.name %></span>
+      <span class="user_name">@<%= message.membership_name %></span>
       <span class="sent_at text-muted"><%= message_sent_at(message) %></span>
       <br/>
     <%- end -%>

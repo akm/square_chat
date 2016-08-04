@@ -19,4 +19,12 @@ class Message < ApplicationRecord
   belongs_to :room, required: true
   belongs_to :membership, required: true
   after_create_commit { MessageBroadcastJob.perform_later self }
+
+  def membership_name
+    membership.name
+  end
+
+  def membership_image_url
+    membership.image_url
+  end
 end
