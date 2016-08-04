@@ -1,24 +1,25 @@
-# README
+# square chat
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Setup
 
-Things you may want to cover:
+### Development
 
-* Ruby version
+```bash
+$ bin/setup
+$ bin/rails spec
+$ bin/rails s
+```
 
-* System dependencies
+open http://localhost:3000
 
-* Configuration
+### Production
 
-* Database creation
+```bash
+$ export RAILS_ENV=production
+$ export RAILS_SERVE_STATIC_FILES=true
+$ export SECRET_KEY_BASE=$(bin/rails secret)
+$ bin/rails db:create
+$ bin/rails s
+```
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+open http://localhost:3000 or http://host_or_IP:3000
