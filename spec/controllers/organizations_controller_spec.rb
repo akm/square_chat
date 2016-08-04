@@ -54,6 +54,12 @@ RSpec.describe OrganizationsController, type: :controller do
       get :show, params: {:id => organization.to_param}, session: valid_session
       expect(assigns(:organization)).to eq(organization)
     end
+
+    it "with a room" do
+      room = organization.rooms.create!(name: "general")
+      get :show, params: {:id => organization.to_param}, session: valid_session
+      expect(response).to redirect_to(organization_room_path(organization, room))
+    end
   end
 
   describe "GET #new" do

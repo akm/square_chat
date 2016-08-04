@@ -13,7 +13,12 @@ class OrganizationsController < ApplicationController
   # GET /organizations/1
   # GET /organizations/1.json
   def show
-    @rooms = @organization.rooms.all
+    room = @organization.rooms.first
+    if room
+      redirect_to organization_room_path(@organization, room)
+    else
+      render :show
+    end
   end
 
   # GET /organizations/new
