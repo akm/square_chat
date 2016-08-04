@@ -10,7 +10,7 @@ class MembershipsController < ApplicationController
   # GET /memberships
   # GET /memberships.json
   def index
-    @memberships = Membership.all
+    @memberships = @organization.memberships.all
   end
 
   # GET /memberships/1
@@ -20,7 +20,7 @@ class MembershipsController < ApplicationController
 
   # GET /memberships/new
   def new
-    @membership = Membership.new
+    @membership = @organization.memberships.build
   end
 
   # GET /memberships/1/edit
