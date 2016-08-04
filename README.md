@@ -19,6 +19,7 @@ $ export RAILS_ENV=production
 $ export RAILS_SERVE_STATIC_FILES=true
 $ export SECRET_KEY_BASE=$(bin/rails secret)
 $ bin/rails db:create
+$ bin/rails assets:precompile
 $ bin/rails s
 ```
 
