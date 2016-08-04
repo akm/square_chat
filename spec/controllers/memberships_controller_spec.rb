@@ -88,7 +88,7 @@ RSpec.describe MembershipsController, type: :controller do
 
       it "redirects to the created membership" do
         post :create, params: {:organization_id => organization.id, :membership => valid_parameters}, session: valid_session
-        expect(response).to redirect_to(organization_membership_path(organization, Membership.last))
+        expect(response).to redirect_to(organization_memberships_path(organization))
       end
     end
 
@@ -131,7 +131,7 @@ RSpec.describe MembershipsController, type: :controller do
       it "redirects to the membership" do
         membership # To create membership
         put :update, params: {:organization_id => organization.id, :id => membership.to_param, :membership => valid_parameters}, session: valid_session
-        expect(response).to redirect_to(organization_membership_path(organization, membership))
+        expect(response).to redirect_to(organization_memberships_path(organization))
       end
     end
 
