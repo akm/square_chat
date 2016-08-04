@@ -20,7 +20,11 @@ require 'rails_helper'
 
 RSpec.describe OrganizationsController, type: :controller do
 
-  login_user
+  let(:user){ FactoryGirl.create(:user) }
+  let(:organization){ FactoryGirl.create(:organization) }
+  let(:membership){ FactoryGirl.create(:membership, organization: organization, user: user) }
+  before{ membership } # to load membership
+  before{ devise_user_login(user) }
 
   # This should return the minimal set of attributes required to create a valid
   # Organization. As you add validations to Organization, be sure to
@@ -40,7 +44,6 @@ RSpec.describe OrganizationsController, type: :controller do
 
   describe "GET #index" do
     it "assigns all organizations as @organizations" do
-      organization = FactoryGirl.create(:organization)
       get :index, params: {}, session: valid_session
       expect(assigns(:organizations)).to eq([organization])
     end
@@ -48,9 +51,14 @@ RSpec.describe OrganizationsController, type: :controller do
 
   describe "GET #show" do
     it "assigns the requested organization as @organization" do
-      organization = FactoryGirl.create(:organization)
       get :show, params: {:id => organization.to_param}, session: valid_session
       expect(assigns(:organization)).to eq(organization)
+    end
+
+    it "with a room" do
+      room = organization.rooms.create!(name: "general")
+      get :show, params: {:id => organization.to_param}, session: valid_session
+      expect(response).to redirect_to(organization_room_path(organization, room))
     end
   end
 
@@ -63,7 +71,6 @@ RSpec.describe OrganizationsController, type: :controller do
 
   describe "GET #edit" do
     it "assigns the requested organization as @organization" do
-      organization = FactoryGirl.create(:organization)
       get :edit, params: {:id => organization.to_param}, session: valid_session
       expect(assigns(:organization)).to eq(organization)
     end
@@ -111,20 +118,17 @@ RSpec.describe OrganizationsController, type: :controller do
       }
 
       it "updates the requested organization" do
-        organization = FactoryGirl.create(:organization)
         put :update, params: {:id => organization.to_param, :organization => new_attributes}, session: valid_session
         organization.reload
         expect(organization.name).to eq new_name
       end
 
       it "assigns the requested organization as @organization" do
-        organization = FactoryGirl.create(:organization)
         put :update, params: {:id => organization.to_param, :organization => valid_attributes}, session: valid_session
         expect(assigns(:organization)).to eq(organization)
       end
 
       it "redirects to the organization" do
-        organization = FactoryGirl.create(:organization)
         put :update, params: {:id => organization.to_param, :organization => valid_attributes}, session: valid_session
         expect(response).to redirect_to(organization)
       end
@@ -132,13 +136,11 @@ RSpec.describe OrganizationsController, type: :controller do
 
     context "with invalid params" do
       it "assigns the organization as @organization" do
-        organization = FactoryGirl.create(:organization)
         put :update, params: {:id => organization.to_param, :organization => invalid_attributes}, session: valid_session
         expect(assigns(:organization)).to eq(organization)
       end
 
       it "re-renders the 'edit' template" do
-        organization = FactoryGirl.create(:organization)
         put :update, params: {:id => organization.to_param, :organization => invalid_attributes}, session: valid_session
         expect(response).to render_template("edit")
       end
@@ -147,14 +149,12 @@ RSpec.describe OrganizationsController, type: :controller do
 
   describe "DELETE #destroy" do
     it "destroys the requested organization" do
-      organization = FactoryGirl.create(:organization)
       expect {
         delete :destroy, params: {:id => organization.to_param}, session: valid_session
       }.to change(Organization, :count).by(-1)
     end
 
     it "redirects to the organizations list" do
-      organization = FactoryGirl.create(:organization)
       delete :destroy, params: {:id => organization.to_param}, session: valid_session
       expect(response).to redirect_to(organizations_url)
     end

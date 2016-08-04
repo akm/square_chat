@@ -16,7 +16,7 @@ RSpec.describe "memberships/edit", type: :view do
 
       assert_select "input#membership_name[name=?]", "membership[name]"
 
-      assert_select "input#membership_role[name=?]", "membership[role]"
+      assert_select "select#membership_role[name=?]", "membership[role]"
     end
   end
 end

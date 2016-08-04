@@ -10,7 +10,7 @@ class MembershipsController < ApplicationController
   # GET /memberships
   # GET /memberships.json
   def index
-    @memberships = Membership.all
+    @memberships = @organization.memberships.all
   end
 
   # GET /memberships/1
@@ -20,7 +20,7 @@ class MembershipsController < ApplicationController
 
   # GET /memberships/new
   def new
-    @membership = Membership.new
+    @membership = @organization.memberships.build
   end
 
   # GET /memberships/1/edit
@@ -34,7 +34,7 @@ class MembershipsController < ApplicationController
 
     respond_to do |format|
       if @membership.save
-        format.html { redirect_to organization_membership_path(@organization, @membership), notice: 'Membership was successfully created.' }
+        format.html { redirect_to organization_memberships_path(@organization), notice: 'Membership was successfully created.' }
         format.json { render :show, status: :created, location: @membership }
       else
         format.html { render :new }
@@ -48,7 +48,7 @@ class MembershipsController < ApplicationController
   def update
     respond_to do |format|
       if @membership.update(membership_params)
-        format.html { redirect_to organization_membership_path(@organization, @membership), notice: 'Membership was successfully updated.' }
+        format.html { redirect_to organization_memberships_path(@organization), notice: 'Membership was successfully updated.' }
         format.json { render :show, status: :ok, location: @membership }
       else
         format.html { render :edit }

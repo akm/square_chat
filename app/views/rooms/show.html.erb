@@ -17,7 +17,9 @@
 <%= javascript_tag defer: 'defer' do -%>
 (function(){
   var adjust = function() {
-    $('#messages').css('max-height', ($(window).height() - 140) + 'px');
+    var h = ($(window).height() - 140) + 'px';
+    $('#messages').css('min-height', h);
+    $('#messages').css('max-height', h);
   };
   adjust();
   $('#messages').scrollTop($('#messages').get(0).scrollHeight);

@@ -4,16 +4,16 @@
    ((message.created_at - @last_sent_at) < 180)
 -%>
 <div class="message">
-  <div class="col-sm-1 text-center">
+  <div class="col-xs-1 text-center">
     <%- if continuous -%>
       <span class="sent_at text-muted"><%= message_sent_at(message) %></span>
     <%- else -%>
-      <%= image_tag(message.membership.image_url, class: 'user-icon') %>
+      <%= image_tag(message.membership_image_url, class: 'user-icon') %>
     <%- end -%>
   </div>
-  <div class="col-sm-11">
+  <div class="col-xs-11">
     <%- unless continuous -%>
-      <span class="user_name">@<%= message.membership.name %></span>
+      <span class="user_name">@<%= message.membership_name %></span>
       <span class="sent_at text-muted"><%= message_sent_at(message) %></span>
       <br/>
     <%- end -%>
